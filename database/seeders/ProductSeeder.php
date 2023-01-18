@@ -21,6 +21,7 @@ class ProductSeeder extends Seeder
             $new_product->name = $faker->word(2, true);
             $new_product->description = $faker->text();
             $new_product->price = $faker->randomFloat(2, 1, 100);
+            $new_product->image = 'images/placeholder.webp';
             $new_product->save();
         }
     }

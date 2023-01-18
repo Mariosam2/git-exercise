@@ -13,6 +13,12 @@
                     aria-describedby="helpId">
                 <small id="helpId" class="text-muted">Help text</small>
             </div>
+            <!-- input file for the product image-->
+            <div class="mb-3">
+                <label for="image" class="form-label">Choose file</label>
+                <input type="file" class="form-control" name="image" id="image" aria-describedby="fileHelpId">
+                <div id="fileHelpId" class="form-text">Help text</div>
+            </div>
             <!-- input for the product description -->
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
