@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderByDesc('id')->get();
         return view('admin.products.index', compact('products'));
     }
 
@@ -38,9 +38,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        //dd($request);
         $data = $request->validated();
         $product = Product::create($data);
-        return to_route('admin.products.index', compact('product'));
+        return to_route('admin.products.index', compact('product'))->with('message', "$product->name  added successfully");
     }
 
     /**
@@ -76,7 +77,7 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $product->update($data);
-        return to_route('admin.products.index');
+        return to_route('admin.products.index')->with('message', "$product->name  edited successfully");
     }
 
     /**
