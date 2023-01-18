@@ -45,10 +45,10 @@ class ProductController extends Controller
         $data = $request->validated();
         if ($request->hasFile('image')) {
             //dd($data['image']);
-            $image = Storage::put('uploads', $data['image']);
+            $image = Storage::put('images', $data['image']);
             $data['image'] = $image;
         }
-        //dd($data['image']);
+        //dd($data);
         $product = Product::create($data);
         if ($request->has('tags')) {
             $product->tags()->attach($data['tags']);
