@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -38,8 +39,14 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //dd($request);
+        //dd($request->all());
         $data = $request->validated();
+        if ($request->hasFile('image')) {
+            //dd($data['image']);
+            $image = Storage::put('uploads', $data['image']);
+            $data['image'] = $image;
+        }
+        //dd($data['image']);
         $product = Product::create($data);
         return to_route('admin.products.index', compact('product'))->with('message', "$product->name  added successfully");
     }
