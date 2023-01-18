@@ -43,10 +43,10 @@ class ProductController extends Controller
         $data = $request->validated();
         if ($request->hasFile('image')) {
             //dd($data['image']);
-            $image = Storage::put('uploads', $data['image']);
+            $image = Storage::put('images', $data['image']);
             $data['image'] = $image;
         }
-        //dd($data['image']);
+        //dd($data);
         $product = Product::create($data);
         return to_route('admin.products.index', compact('product'))->with('message', "$product->name  added successfully");
     }
