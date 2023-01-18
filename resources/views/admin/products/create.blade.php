@@ -14,10 +14,26 @@
                 <small id="helpId" class="text-muted">Help text</small>
             </div>
             <!-- input file for the product image-->
-            <div class="mb-3">
-                <label for="image" class="form-label">Choose file</label>
-                <input type="file" class="form-control" name="image" id="image" aria-describedby="fileHelpId">
-                <div id="fileHelpId" class="form-text">Help text</div>
+            <div class="d-flex">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Choose file</label>
+                    <input type="file" class="form-control" name="image" id="image" aria-describedby="fileHelpId">
+                    <div id="fileHelpId" class="form-text">Help text</div>
+                </div>
+                <div class="mb-3 ms-4">
+                    <label for="" class="form-label">Tags</label>
+                    <select multiple class="form-select form-select-lg" name="tags[]" id="tags">
+                        <option disabled>Select one</option>
+                        @forelse($tags as $tag)
+                            <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'selected' : '' }}>
+                                {{ $tag->name }}
+                            </option>
+                        @empty
+                            No tags..
+                        @endforelse
+
+                    </select>
+                </div>
             </div>
             <!-- input for the product description -->
             <div class="mb-3">

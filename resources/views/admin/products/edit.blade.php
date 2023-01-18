@@ -9,11 +9,41 @@
             @method('PUT')
             @csrf
             <!-- input for the product name -->
+
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="name" id="name" class="form-control"
                     value="{{ old('name', $product->name) }}" aria-describedby="helpId">
                 <small id="helpId" class="text-muted">Help text</small>
+            </div>
+            <div class="d-flex">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Choose file</label>
+                    <input type="file" class="form-control" name="image" id="image" aria-describedby="fileHelpId">
+                    <div id="fileHelpId" class="form-text">Help text</div>
+                </div>
+                <div class="mb-3 ms-4">
+                    <label for="" class="form-label">Tags</label>
+                    <select multiple class="form-select form-select-lg" name="tags[]" id="tags">
+                        <option disabled>Select one</option>
+                        @forelse($tags as $tag)
+                            @if ($errors->any())
+                                <option value="{{ $tag->id }}"
+                                    {{ in_array($tag->id, old('tags', [])) ? 'selected' : '' }}>
+                                    {{ $tag->name }}
+                                </option>
+                            @else
+                                <option value="{{ $tag->id }}"
+                                    {{ $product->tags->contains($tag->id) ? 'selected' : '' }}>
+                                    {{ $tag->name }}</option>
+                            @endif
+                        @empty
+                            No tags..
+                        @endforelse
+
+
+                    </select>
+                </div>
             </div>
             <!-- input for the product description -->
             <div class="mb-3">

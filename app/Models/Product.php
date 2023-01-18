@@ -10,7 +10,7 @@ use App\Models\Tag;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'price'];
+    protected $fillable = ['name', 'description', 'price',];
 
     public function tags(): BelongsToMany
     {

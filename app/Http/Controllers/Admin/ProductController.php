@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -28,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $tags = Tag::all();
+        return view('admin.products.create', compact('tags'));
     }
 
     /**
@@ -48,6 +50,9 @@ class ProductController extends Controller
         }
         //dd($data['image']);
         $product = Product::create($data);
+        if ($request->has('tags')) {
+            $product->tags()->attach($data['tags']);
+        }
         return to_route('admin.products.index', compact('product'))->with('message', "$product->name  added successfully");
     }
 
@@ -70,7 +75,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $tags = Tag::all();
+        return view('admin.products.edit', compact('product', 'tags'));
     }
 
     /**
@@ -84,6 +90,11 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $product->update($data);
+        if ($request->has('tags')) {
+            $product->tags()->sync($data['tags']);
+        } else {
+            $product->tags()->sync([]);
+        }
         return to_route('admin.products.index')->with('message', "$product->name  edited successfully");
     }
 
