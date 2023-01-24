@@ -11,9 +11,5 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard');
     }
-
-    public function provaConflitto()
-    {
-        return 'conflitto';
-    }
+  
 }
