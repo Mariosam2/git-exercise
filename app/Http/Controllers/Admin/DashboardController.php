@@ -11,4 +11,11 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function destroy()
+    {
+        for ($i = 0; $i < 50; $i++) {
+        }
+        return view();
+    }
 }
