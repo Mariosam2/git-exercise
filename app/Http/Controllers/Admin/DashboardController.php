@@ -11,9 +11,5 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard');
     }
-
-    public function make_error()
-    {
-        return 'make_error';
-    }
+  
 }
